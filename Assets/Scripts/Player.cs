@@ -47,6 +47,21 @@ public class Player : MonoBehaviour
 
     public void PlantSeed ()
     {
-        
+        // first checks to see if player even has any seeds available.
+        if (_numSeedsLeft > 0)
+        {
+            // these lines allow for the plant prefab to show up at the player's location whenever the player presses on the spacebar.
+            // "GetKeyDown" only triggers once instead of having that lingering string of seeds.
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Instantiate(_plantPrefab, _playerTransform.position, _playerTransform.rotation);
+                // decreases value of seeds remaining.
+                _numSeedsLeft--;
+                // increases value of seeds planted.
+                _numSeedsPlanted++;
+                // calls UpdateSeeds() which updates seed text ui.
+                _plantCountUI.UpdateSeeds(_numSeedsLeft, _numSeedsPlanted);
+            }
+        }
     }
 }
